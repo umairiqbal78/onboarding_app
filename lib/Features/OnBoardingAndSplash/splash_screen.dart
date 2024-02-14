@@ -1,6 +1,4 @@
 import 'dart:async';
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -28,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         sp.write("initial", "true");
         Get.offAllNamed(Routes.loginScreen);
       } */else {
-        XHelperFunctions.showBotToast(text: "Login Screen");
+        Get.offAllNamed(Routes.loginScreen);
       }
     });
   }
@@ -39,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: XColors.whiteColor,
+          color: XColors.secondaryColor,
         ),
         child: Image.asset(
           "assets/logos/app_logo.png",

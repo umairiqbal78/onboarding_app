@@ -1,42 +1,24 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:onboarding/Utils/Contants/colors.dart';
 import 'package:onboarding/Utils/Themes/text_theme.dart';
-import 'package:onboarding/Utils/Themes/theme.dart';
 
 class XHelperFunctions {
 
-  static void configLoading() {
-    EasyLoading.instance
-      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-      ..loadingStyle = EasyLoadingStyle.light
-      ..indicatorSize = 45.0
-      ..radius = 10.0
-      ..displayDuration = const Duration(seconds: 2)
-      ..progressColor = XColors.primaryColor
-      ..backgroundColor =  XColors.borderColor
-      ..indicatorColor = XColors.primaryColor
-      ..textColor =  XColors.textColor
-      ..maskColor = XColors.primaryColor;
-  }
-
-  static void showSnackBar(String message) {
+  static  showSnackBar({required String text}) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
-      SnackBar(content: Text(message)),
+      SnackBar(backgroundColor: XColors.primaryColor, content: Text(text,style: XTextThemes.lightTextTheme.titleMedium!.copyWith(color: XColors.whiteColor),)),
     );
   }
-
-  static void showBotToast({required String text}) {
-     BotToast.showText(
-       backgroundColor: XColors.borderColor,
-        textStyle: XTextThemes.lightTextTheme.bodyMedium!,
-        contentColor: XColors.whiteColor,
-        text: text);
+  static void showLoading() {
+     const SpinKitCircle(color: Colors.white,);
   }
 
+  static void stopLoading() {
+    const SpinKitCircle(color: Colors.white,).controller?.stop();
+  }
 
   static void showAlert(String title, String message) {
     showDialog(

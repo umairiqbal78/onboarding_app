@@ -1,12 +1,10 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:onboarding/Features/OnBoardingAndSplash/splash_screen.dart';
 import 'package:onboarding/Localization/languages.dart';
 import 'package:onboarding/Localization/localization_services.dart';
 import 'package:onboarding/Routes/app_pages.dart';
-import 'package:onboarding/Utils/Helpers/helper_functions.dart';
 import 'package:onboarding/Utils/Helpers/scroll_behaviour.dart';
 import 'package:onboarding/Utils/Local_Storage/local_storage.dart';
 import 'package:onboarding/Utils/Themes/theme.dart';
@@ -15,7 +13,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   runApp(const MyApp());
-  XHelperFunctions.configLoading();
 }
 
 class MyApp extends StatelessWidget {
@@ -26,14 +23,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Dijelac',
       debugShowCheckedModeBanner: false,
-      builder: (context, child) {
-        child = ScrollConfiguration(
-          behavior: MyBehavior(),
-          child: EasyLoading.init(builder: BotToastInit())(context, child),
-        );
-        return child;
-      },
-      navigatorObservers: [BotToastNavigatorObserver()],
       theme: XTheme.lightTheme,
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,

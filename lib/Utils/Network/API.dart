@@ -2,9 +2,9 @@ import 'dart:async';
 
 
 import 'package:dio/dio.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:onboarding/Utils/Helpers/helper_functions.dart';
 import 'package:onboarding/Utils/Network/ErrorMethod.dart';
 
 import 'Url.dart';
@@ -35,18 +35,18 @@ class API {
     dio.options.headers['Authorization'] = "Bearer ${sp.read('token')}";
     dio.options.headers['Accept'] = "application/json";
     if (loader == true) {
-      EasyLoading.show();
+     XHelperFunctions.showLoading;
     }
     if (url != "") {
       try {
         final response = await dio.get(fullUrl ?? Url().baseUrl + url,
             queryParameters: queryParams);
         if (loader == true) {
-          EasyLoading.dismiss();
+          XHelperFunctions.stopLoading();
         }
         return response;
       } on DioException catch (e) {
-        EasyLoading.dismiss();
+        XHelperFunctions.stopLoading();
         return returnResponse(e.response);
       }
     }
@@ -69,24 +69,24 @@ class API {
         dio.options.headers['Accept'] = "application/json";
       }
       if (loader == true) {
-        EasyLoading.show();
+        XHelperFunctions.showLoading();
       }
       if (!showProgress) {
         dynamic response = await dio.post(
           Url().baseUrl + url,
           data: formData,
         );
-        EasyLoading.dismiss();
+        XHelperFunctions.stopLoading();
         return response;
       } else {
         dynamic response = await dio.post(Url().baseUrl + url, data: formData,
             onSendProgress: (int progress, int total) {
         });
-        EasyLoading.dismiss();
+        XHelperFunctions.stopLoading();
         return response;
       }
     } on DioException catch (e) {
-      EasyLoading.dismiss();
+      XHelperFunctions.stopLoading();
       return returnResponse(e.response);
     }
   }
@@ -109,24 +109,24 @@ class API {
             "application/x-www-form-urlencoded";
       }
       if (loader == true) {
-        EasyLoading.show();
+        XHelperFunctions.showLoading();
       }
       if (!showProgress) {
         dynamic response = await dio.put(
           Url().baseUrl + url,
           data: formData,
         );
-        EasyLoading.dismiss();
+        XHelperFunctions.stopLoading();
         return response;
       } else {
         dynamic response = await dio.put(Url().baseUrl + url, data: formData,
             onSendProgress: (int progress, int total) {
         });
-        EasyLoading.dismiss();
+        XHelperFunctions.stopLoading();
         return response;
       }
     } on DioException catch (e) {
-      EasyLoading.dismiss();
+      XHelperFunctions.stopLoading();
       return returnResponse(e.response);
     }
   }
@@ -151,14 +151,14 @@ class API {
             "application/x-www-form-urlencoded";
       }
       if (loader == true) {
-        EasyLoading.show();
+        XHelperFunctions.showLoading();
       }
       if (!showProgress) {
         dynamic response = await dio.delete(
           Url().baseUrl + url,
           data: formData,
         );
-        EasyLoading.dismiss();
+        XHelperFunctions.stopLoading();
         return response;
       } else {
         // progressAlert(context, 100);
@@ -166,11 +166,12 @@ class API {
           Url().baseUrl + url,
           data: formData,
         );
-        EasyLoading.dismiss();
+        XHelperFunctions.stopLoading();
         return response;
       }
     } on DioException catch (e) {
-      EasyLoading.dismiss();
+
+      XHelperFunctions.stopLoading();
       // if (loader == true) {
       //   EasyLoading.dismiss();
       // }

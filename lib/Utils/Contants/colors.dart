@@ -10,4 +10,6 @@ class XColors{
   static Color hintTextColor = const Color(0xffBDBDBD);
   static Color iconInactiveColor = const Color(0xffADAFBB);
   static Color borderColor = const Color(0xffE8E6EA);
+  static Color redColor = const Color(0xffff3333);
+
 }
