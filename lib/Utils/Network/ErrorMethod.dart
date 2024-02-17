@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onboarding/Routes/app_pages.dart';
-import 'package:onboarding/Utils/Contants/colors.dart';
-import 'package:onboarding/Utils/Helpers/helper_functions.dart';
+import 'package:dijelac/Routes/app_pages.dart';
+import 'package:dijelac/Utils/Contants/colors.dart';
+import 'package:dijelac/Utils/Helpers/helper_functions.dart';
 
 
 dynamic returnResponse(dio.Response? responseData) {

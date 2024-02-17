@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding/Localization/localization_services.dart';
+import 'package:dijelac/Localization/localization_services.dart';
 
 enum LocalizationsKeys {
   hello,

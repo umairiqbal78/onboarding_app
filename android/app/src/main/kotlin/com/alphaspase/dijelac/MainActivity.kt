@@ -1,4 +1,4 @@
-package com.example.onboarding
+package com.alphaspase.dijelac
 
 import io.flutter.embedding.android.FlutterActivity
 

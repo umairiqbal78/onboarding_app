@@ -1,6 +1,6 @@
-# onboarding
+# dijelac
 <<<<<<< HEAD
-Template project for onboarding app
+Template project for dijelac app
 =======
 
 A new Flutter project.
@@ -18,3 +18,4 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 >>>>>>> 1f4bd13 (adding file to git)
+# dijelac_flutter

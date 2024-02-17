@@ -4,8 +4,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 
 import 'package:get_storage/get_storage.dart';
-import 'package:onboarding/Utils/Helpers/helper_functions.dart';
-import 'package:onboarding/Utils/Network/ErrorMethod.dart';
+import 'package:dijelac/Utils/Helpers/helper_functions.dart';
+import 'package:dijelac/Utils/Network/ErrorMethod.dart';
 
 import 'Url.dart';
 
@@ -16,12 +16,13 @@ class API {
   factory API() {
     return _singleton;
   }
+  API._internal();
   Dio dio = Dio(BaseOptions(
     connectTimeout: const Duration(milliseconds: 10000),
     receiveTimeout: const Duration(milliseconds: 90000),
   ));
 
-  API._internal();
+
   Dio addInterceptors() {
     return dio
       ..interceptors.add(InterceptorsWrapper(

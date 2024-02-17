@@ -2,28 +2,27 @@ import 'package:get_storage/get_storage.dart';
 
 class XLocalStorage{
   static final XLocalStorage  _instance = XLocalStorage._internal();
-
+  var storage = GetStorage();
   factory XLocalStorage(){
     return _instance;
   }
   XLocalStorage._internal();
 
-  final _storage = GetStorage();
 
-  Future<void> saveData<T>(String key, T value)async {
-    await _storage.write(key,value);
+  writeData<T>(String key, T value) async {
+    return await storage.write(key,value);
   }
 
-  T? readData<T>(String key) {
-    _storage.read<T>(key);
+  readData(String key) {
+   return storage.read(key);
   }
 
-  Future<void> removeData<T>(String key)async {
-    await _storage.remove(key);
+  removeData<T>(String key)async {
+   return await storage.remove(key);
   }
 
-  Future<void> clearAll()async {
-    await _storage.erase();
+  clearAll()async {
+    return await storage.erase();
   }
 
 }

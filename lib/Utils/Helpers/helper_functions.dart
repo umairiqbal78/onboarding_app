@@ -1,9 +1,10 @@
+import 'package:dijelac/Common/Widgets/Auth/validation_password_checks_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:onboarding/Utils/Contants/colors.dart';
-import 'package:onboarding/Utils/Themes/text_theme.dart';
+import 'package:dijelac/Utils/Contants/colors.dart';
+import 'package:dijelac/Utils/Themes/text_theme.dart';
 
 class XHelperFunctions {
 
@@ -69,5 +70,89 @@ class XHelperFunctions {
     return wrappedList;
   }
 
+  static List<bool> validatePassword({
+    required String value,
+    bool onTap = false,
+    required PasswordValidationChecks passwordValidationChecks,
+    required List<bool> allPasswordValidationChecks,
+  }) {
+    allPasswordValidationChecks.clear();
 
+    /// 8 characters long
+    const String mustContain8Charac = '.{8,}';
+    final RegExp mustContain8CharacRegex = RegExp(mustContain8Charac);
+    if (!mustContain8CharacRegex.hasMatch(value)) {
+      if (onTap) {
+        passwordValidationChecks.validationOfAtleast8Characters = false;
+        allPasswordValidationChecks.add(passwordValidationChecks.validationOfAtleast8Characters);
+      } else {
+        passwordValidationChecks.validationOfAtleast8Characters = false;
+      }
+    } else {
+      passwordValidationChecks.validationOfAtleast8Characters = true;
+      allPasswordValidationChecks.add(passwordValidationChecks.validationOfAtleast8Characters);
+    }
+
+    /// a lowercase
+    const String mustContainalowerCase = '(?=.*?[a-z])';
+    final RegExp mustContainalowerCaseRegex = RegExp(mustContainalowerCase);
+    if (!mustContainalowerCaseRegex.hasMatch(value)) {
+      if (onTap) {
+        passwordValidationChecks.validationOfaLowerCase = false;
+        allPasswordValidationChecks.add(passwordValidationChecks.validationOfaLowerCase);
+      } else {
+        passwordValidationChecks.validationOfaLowerCase = false;
+      }
+    } else {
+      passwordValidationChecks.validationOfaLowerCase = true;
+      allPasswordValidationChecks.add(passwordValidationChecks.validationOfaLowerCase);
+    }
+
+    /// an uppercase
+    const String mustContainanUpperCase = '(?=.*?[A-Z])';
+    final RegExp mustContainanUpperCaseRegex = RegExp(mustContainanUpperCase);
+    if (!mustContainanUpperCaseRegex.hasMatch(value)) {
+      if (onTap) {
+        passwordValidationChecks.validationOfanUpperCase = false;
+        allPasswordValidationChecks.add(passwordValidationChecks.validationOfanUpperCase);
+      } else {
+        passwordValidationChecks.validationOfanUpperCase = false;
+      }
+    } else {
+      passwordValidationChecks.validationOfanUpperCase = true;
+      allPasswordValidationChecks.add(passwordValidationChecks.validationOfanUpperCase);
+    }
+
+    /// a number
+    const String mustContainaNumber = '(?=.*?[0-9])';
+    final RegExp mustContainaNumberRegex = RegExp(mustContainaNumber);
+    if (!mustContainaNumberRegex.hasMatch(value)) {
+      if (onTap) {
+        passwordValidationChecks.validationOfaNumber = false;
+        allPasswordValidationChecks.add(passwordValidationChecks.validationOfaNumber);
+      } else {
+        passwordValidationChecks.validationOfaNumber = false;
+      }
+    } else {
+      passwordValidationChecks.validationOfaNumber = true;
+      allPasswordValidationChecks.add(passwordValidationChecks.validationOfaNumber);
+    }
+
+    /// a special character
+    const String mustContainSpecialCharacter = '(?=.*?[.!@#\$%^()&*~])';
+    final RegExp mustContainSpecialCharacterRegex = RegExp(mustContainSpecialCharacter);
+    if (!mustContainSpecialCharacterRegex.hasMatch(value)) {
+      if (onTap) {
+        passwordValidationChecks.validationOfaSpecialCase = false;
+        allPasswordValidationChecks.add(passwordValidationChecks.validationOfaSpecialCase);
+      } else {
+        passwordValidationChecks.validationOfaSpecialCase = false;
+      }
+    } else {
+      passwordValidationChecks.validationOfaSpecialCase = true;
+      allPasswordValidationChecks.add(
+          passwordValidationChecks.validationOfaSpecialCase);
+    }
+    return allPasswordValidationChecks;
+  }
 }

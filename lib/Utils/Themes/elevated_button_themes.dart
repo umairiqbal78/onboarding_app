@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding/Utils/Contants/colors.dart';
+import 'package:dijelac/Utils/Contants/colors.dart';
 
 class XElevatedButtonTheme {
   XElevatedButtonTheme._(); //To avoid creating instances

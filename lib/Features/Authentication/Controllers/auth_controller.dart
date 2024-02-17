@@ -1,16 +1,16 @@
 import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
+import 'package:dijelac/Common/Widgets/Auth/validation_password_checks_model.dart';
 import 'package:dio/dio.dart' as form;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:onboarding/Routes/app_pages.dart';
-import 'package:onboarding/Utils/Contants/colors.dart';
-import 'package:onboarding/Utils/Helpers/helper_functions.dart';
-import 'package:onboarding/Utils/Network/API.dart';
-import 'package:onboarding/Utils/Themes/text_theme.dart';
+import 'package:dijelac/Routes/app_pages.dart';
+import 'package:dijelac/Utils/Contants/colors.dart';
+import 'package:dijelac/Utils/Helpers/helper_functions.dart';
+import 'package:dijelac/Utils/Network/API.dart';
+import 'package:dijelac/Utils/Themes/text_theme.dart';
+import 'package:intl/intl.dart';
 
 
 class AuthController extends GetxController {
@@ -18,12 +18,33 @@ class AuthController extends GetxController {
 
   ///sign Up
   final fullNameController = TextEditingController();
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final retypePasswordController = TextEditingController();
+  PasswordValidationChecks passwordValidationChecks = PasswordValidationChecks();
+  List<bool> allPasswordValidationChecks = [];
+  void onChangeTextField({required String value}){
+    XHelperFunctions.validatePassword(value:value, passwordValidationChecks: passwordValidationChecks,allPasswordValidationChecks: allPasswordValidationChecks);
+    update();
+  }
   RxBool signUpShowPassword = true.obs;
+  RxBool showRetypePassword = true.obs;
+  TextEditingController genderController = TextEditingController();
+  String? gender;
+  List<String> genderOptions = ["Male", "Female", "Other"];
+  RxBool areYouABusiness = false.obs;
+  final dateOfBirthController = TextEditingController();
+  final companyName = TextEditingController();
+  DateTime? pickedCurrentDate;
+  String? birthDate;
+  final format = DateFormat("yyyy-MM-dd");
+  final phoneNumberController = TextEditingController();
+  final streetNameController = TextEditingController();
+  final streetNumberController = TextEditingController();
+  final cityController = TextEditingController();
+  final zipCodeController = TextEditingController();
+  RxBool acceptTCAndPP = false.obs;
   signUp() async {
-
     var formData = form.FormData.fromMap({
       "name": fullNameController.text,
       "email": emailController.text,
@@ -57,6 +78,7 @@ class AuthController extends GetxController {
   /// login
   final loginEmailController = TextEditingController();
   final loginPasswordController = TextEditingController();
+  RxBool loginShowPassword = true.obs;
   login() async {
     var formData = form.FormData.fromMap({
       "email": loginEmailController.text,

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:onboarding/Utils/Contants/colors.dart';
-import 'package:onboarding/Utils/Themes/text_theme.dart';
+import 'package:dijelac/Utils/Contants/colors.dart';
+import 'package:dijelac/Utils/Themes/text_theme.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class CustomTextFields extends StatelessWidget {
+import '../../Utils/Formatters/number_formatter.dart';
+
+class XCustomTextFields extends StatelessWidget {
   TextEditingController controller = TextEditingController();
   dynamic getController;
-  CustomTextFields(
+  var maskFormatter =  MaskTextInputFormatter(
+      mask: '+385 ##-###-####',
+      filter: { "#": RegExp(r'[0-9]') },
+      type: MaskAutoCompletionType.lazy
+  );
+  XCustomTextFields(
       {Key? key,
       this.hintText,
       this.obscureText = false,
@@ -32,6 +40,7 @@ class CustomTextFields extends StatelessWidget {
       this.decoration,
       this.suffixContentPadding,
       this.onFieldSubmitted,
+        this.numberInputFormatter = false,
       this.cursorColor,
       this.contentPad = true,
       this.textCustomStyle,
@@ -39,7 +48,7 @@ class CustomTextFields extends StatelessWidget {
       this.enable = true,
       this.borderCheck = true,
       this.onDone,
-      this.unfocusOnTapOutside = true,
+      this.unfocusOnTapOutside = false,
       this.containerHeight,
       this.radius,
       this.outlineBorderType = true,
@@ -57,6 +66,7 @@ class CustomTextFields extends StatelessWidget {
   bool? obscureText = false;
   bool? focus = false;
   ValueChanged<String>? onFieldSubmitted;
+  bool numberInputFormatter;
   bool? borderColor = true;
   int? maxLines;
   Widget? prefixIcons;
@@ -87,7 +97,6 @@ class CustomTextFields extends StatelessWidget {
   bool outlineBorderType = true;
   bool isName = false;
   bool isUserName = false;
-
   bool isNumber = false;
   // ignore: prefer_typing_uninitialized_variables
   double? borderWidth;
@@ -95,6 +104,7 @@ class CustomTextFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return TextFormField(
       textInputAction: TextInputAction.done,
       onSaved: (c) {},
@@ -175,6 +185,7 @@ class CustomTextFields extends StatelessWidget {
                   XTextThemes.lightTextTheme.bodyMedium!.copyWith(
                       fontStyle: FontStyle.italic,
                       color: XColors.hintTextColor),
+              errorStyle:  XTextThemes.lightTextTheme.bodySmall!.copyWith(color: XColors.redColor,fontSize: 10),
               helperStyle: XTextThemes.lightTextTheme.bodyLarge,
               suffixIcon: suffix,
               prefixIcon: prefixIcons,
@@ -207,6 +218,7 @@ class CustomTextFields extends StatelessWidget {
                   XTextThemes.lightTextTheme.bodyMedium!.copyWith(
                       fontStyle: FontStyle.italic,
                       color: XColors.hintTextColor),
+              errorStyle:  XTextThemes.lightTextTheme.bodySmall!.copyWith(color: XColors.redColor,fontSize: 10),
               helperStyle: XTextThemes.lightTextTheme.bodyMedium!.copyWith(
                   fontStyle: FontStyle.italic, color: XColors.hintTextColor),
               suffixIcon: suffix,
@@ -216,7 +228,7 @@ class CustomTextFields extends StatelessWidget {
       maxLines: maxLines,
       minLines: 1,
       obscureText: obscureText!,
-      inputFormatters: isDigit!
+      inputFormatters: numberInputFormatter  ? <TextInputFormatter>[maskFormatter]  : isDigit!
           ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
           : null,
       validator: (value) {
@@ -229,7 +241,7 @@ class CustomTextFields extends StatelessWidget {
               getController.retypePasswordController.text) {
             return null;
           } else {
-            return "Password doesn't match";
+            return "Confirm password doesn't match with password";
           }
         } else if (isName == true) {
           return validateName(value);
@@ -307,55 +319,5 @@ class CustomTextFields extends StatelessWidget {
     } else {
       return null;
     }
-  }
-}
-
-class ButtonTextFields extends StatelessWidget {
-  ButtonTextFields({
-    Key? key,
-    this.hintText,
-    this.textStyle,
-    this.hintStyling,
-    this.cursorColor,
-    this.cursorHeight,
-    this.controller,
-    this.onSubmit,
-    this.onChange,
-  }) : super(key: key);
-
-  String? hintText;
-  TextStyle? textStyle;
-  TextStyle? hintStyling;
-  Color? cursorColor;
-  double? cursorHeight;
-  TextEditingController? controller;
-  Function(String)? onSubmit;
-  Function(String)? onChange;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.bottomCenter,
-      child: TextFormField(
-        controller: controller ?? TextEditingController(),
-        textAlign: TextAlign.start,
-        cursorColor: cursorColor ?? Colors.black,
-        cursorHeight: cursorHeight ?? 20,
-        cursorWidth: 2.0,
-        style: textStyle,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(top: 2.0, bottom: 10.0),
-          focusedBorder: InputBorder.none,
-          border: InputBorder.none,
-          hintText: hintText,
-          hintStyle: hintStyling,
-          alignLabelWithHint: true,
-        ),
-        onChanged: onChange,
-        onFieldSubmitted: onSubmit,
-        onEditingComplete: () {
-          print("on editing complete========>");
-        },
-      ),
-    );
   }
 }
