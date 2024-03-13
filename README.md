@@ -1,6 +1,4 @@
-# dijelac
-<<<<<<< HEAD
-Template project for dijelac app
+Template project
 =======
 
 A new Flutter project.
@@ -17,5 +15,4 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
->>>>>>> 1f4bd13 (adding file to git)
-# dijelac_flutter
+
